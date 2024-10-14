@@ -1,11 +1,9 @@
 package ru.normno.moviecatalogapp.domain.model
 
-import com.squareup.moshi.Json
-
 data class Film(
     val description: String? = null,
     val genres: List<String> = emptyList(),
-    val id: Int,
+    val id: Long,
     val imageUrl: String? = null,
     val localizedName: String? = null,
     val name: String? = null,
