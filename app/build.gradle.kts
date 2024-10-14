@@ -41,15 +41,20 @@ android {
 }
 
 dependencies {
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.koin.compose.viewmodel)
+    implementation(libs.koin.android)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
     implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation (libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
