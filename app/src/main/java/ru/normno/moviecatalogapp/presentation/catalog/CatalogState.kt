@@ -5,5 +5,7 @@ import ru.normno.moviecatalogapp.domain.model.Film
 data class CatalogState(
     val isLoading: Boolean = false,
     val films: List<Film> = emptyList(),
+    val genres: List<String> = emptyList(),
+    val selectGenre: String? = null,
     val errorMessage: String? = null,
 )

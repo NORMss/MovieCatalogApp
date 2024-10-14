@@ -2,7 +2,6 @@ package ru.normno.moviecatalogapp.presentation.navigator
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,7 +24,13 @@ fun NavGraph(
             val viewModel = koinViewModel<CatalogViewModel>()
             val state = viewModel.state.collectAsState().value
             CatalogScreen(
-                state = state,
+                genres = state.genres,
+                selectGenre = state.selectGenre,
+                onClick = { selectGenre ->
+                    viewModel.setSelectGenre(
+                        genre = selectGenre,
+                    )
+                }
             )
         }
         composable<Route.Details> { backStackEntry ->

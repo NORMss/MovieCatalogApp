@@ -37,6 +37,7 @@ class CatalogViewModel(
         useCases.getMovieCatalog()
             .onSuccess { films ->
                 setFilms(films)
+                crateGenreList()
             }
             .onError { errorMessage ->
                 setErrorMessage(errorMessage = errorMessage.name)
@@ -56,6 +57,25 @@ class CatalogViewModel(
         _state.update {
             it.copy(
                 isLoading = isLoading,
+            )
+        }
+    }
+
+    private fun crateGenreList() {
+        _state.update {
+            it.copy(
+                genres = _state.value.films.flatMap { it.genres }
+                    .map { it.replaceFirstChar { char -> char.uppercaseChar() } }
+                    .distinct()
+                    .sorted(),
+            )
+        }
+    }
+
+    fun setSelectGenre(genre: String) {
+        _state.update {
+            it.copy(
+                selectGenre = if (_state.value.selectGenre == genre) null else genre
             )
         }
     }
