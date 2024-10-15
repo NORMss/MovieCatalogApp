@@ -26,10 +26,14 @@ fun NavGraph(
             CatalogScreen(
                 genres = state.genres,
                 selectGenre = state.selectGenre,
-                onClick = { selectGenre ->
+                films = state.films,
+                onSelectGenre = { selectGenre ->
                     viewModel.setSelectGenre(
                         genre = selectGenre,
                     )
+                },
+                onClickFilm = { film ->
+
                 }
             )
         }
