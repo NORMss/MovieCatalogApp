@@ -1,5 +1,9 @@
 package ru.normno.moviecatalogapp.domain.model
 
+import kotlinx.serialization.Serializable
+
+
+@Serializable
 data class Film(
     val description: String? = null,
     val genres: List<String> = emptyList(),

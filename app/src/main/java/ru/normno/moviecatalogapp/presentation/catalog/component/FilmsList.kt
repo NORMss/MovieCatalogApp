@@ -1,75 +1,53 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package ru.normno.moviecatalogapp.presentation.catalog.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import ru.normno.moviecatalogapp.domain.model.Film
 import ru.normno.moviecatalogapp.ui.theme.AppTheme
 
 fun FilmsList(
-    modifier: Modifier = Modifier,
     films: List<Film>,
     onClickFilm: (Film) -> Unit,
+    columnsCount: Int = 1,
     scope: LazyListScope,
 ) {
-//        LazyVerticalGrid(
-//            columns = GridCells.Fixed(2),
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = AppTheme.size.medium),
-//            contentPadding = PaddingValues(
-//                horizontal = AppTheme.size.normal,
-//                vertical = AppTheme.size.medium,
-//            ),
-//        ) {
-//        }
     scope.apply {
         item {
-            Row(
+            val itemSize: Dp =
+                ((LocalConfiguration.current.screenWidthDp.dp / 2) - (AppTheme.size.normal) - (AppTheme.size.medium))
+            FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.size.medium),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
+                    .padding(
+                        horizontal = AppTheme.size.medium,
+                    ),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.size.normal),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.size.medium),
+                maxItemsInEachRow = columnsCount,
             ) {
-                Text(
-                    text = "Фильмы",
-                    style = AppTheme.typography.titleNormal,
-                    color = AppTheme.colorScheme.onBackground,
-                )
-            }
-            Spacer(
-                modifier = Modifier
-                    .height(AppTheme.size.normal),
-            )
-        }
-        items(
-            items = films,
-            key = {
-                it.id
-            }
-        ) { film ->
-            FilmCard(
-                imageUrl = film.imageUrl,
-                name = film.name ?: "",
-                onClick = {
-                    onClickFilm(film)
+                films.forEach { film ->
+                    FilmCard(
+                        imageUrl = film.imageUrl,
+                        name = film.localizedName ?: "",
+                        onClick = {
+                            onClickFilm(film)
+                        },
+                        modifier = Modifier
+                            .width(itemSize)
+                    )
                 }
-            )
+            }
         }
     }
 }

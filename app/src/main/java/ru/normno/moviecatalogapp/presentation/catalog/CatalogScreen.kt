@@ -1,10 +1,11 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package ru.normno.moviecatalogapp.presentation.catalog
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import ru.normno.moviecatalogapp.domain.model.Film
@@ -52,9 +54,24 @@ fun CatalogScreen(
     ) { padding ->
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(padding),
         ) {
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(AppTheme.size.medium),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                ) {
+                    Text(
+                        text = "Жанры",
+                        style = AppTheme.typography.titleNormal,
+                        color = AppTheme.colorScheme.onBackground,
+                    )
+                }
+            }
             GenresList(
                 genres = genres,
                 selectGenre = selectGenre,
@@ -63,11 +80,31 @@ fun CatalogScreen(
                 },
                 scope = this,
             )
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(AppTheme.size.medium),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start,
+                ) {
+                    Text(
+                        text = "Фильмы",
+                        style = AppTheme.typography.titleNormal,
+                        color = AppTheme.colorScheme.onBackground,
+                    )
+                }
+                Spacer(
+                    modifier = Modifier
+                        .height(AppTheme.size.normal),
+                )
+            }
             FilmsList(
                 films = films,
                 onClickFilm = { film ->
                     onClickFilm(film)
                 },
+                columnsCount = 3,
                 scope = this,
             )
         }

@@ -24,6 +24,18 @@ class CatalogViewModel(
         }
     }
 
+    fun setSelectGenre(genre: String) {
+        _state.update {
+            it.copy(
+                selectGenre = if (_state.value.selectGenre == genre) {
+                    null
+                } else {
+                    genre
+                }.also { filterFilmsByGenre(it) }
+            )
+        }
+    }
+
     private fun setFilms(films: List<Film>) {
         _state.update {
             it.copy(
@@ -38,6 +50,7 @@ class CatalogViewModel(
             .onSuccess { films ->
                 setFilms(films)
                 crateGenreList()
+                filterFilmsByGenre(null)
             }
             .onError { errorMessage ->
                 setErrorMessage(errorMessage = errorMessage.name)
@@ -72,11 +85,22 @@ class CatalogViewModel(
         }
     }
 
-    fun setSelectGenre(genre: String) {
+    private fun setFilmsByGenre(films: List<Film>) {
         _state.update {
             it.copy(
-                selectGenre = if (_state.value.selectGenre == genre) null else genre
+                filteredFilms = films,
             )
+        }
+    }
+
+    private fun filterFilmsByGenre(genre: String?) {
+        if (genre?.isBlank() != false) {
+            _state.value.films.sortedBy { it.localizedName }
+        } else {
+            _state.value.films.filter { it.genres.any { it.equals(genre, ignoreCase = true) } }
+                .sortedBy { it.localizedName }
+        }.let {
+            setFilmsByGenre(it)
         }
     }
 }
