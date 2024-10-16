@@ -32,6 +32,7 @@ data class AppTypography(
 data class AppShape(
     val primaryContainer: Shape,
     val secondaryContainer: Shape,
+    val tertiaryContainer: Shape,
 )
 
 data class AppSize(
@@ -71,6 +72,7 @@ val LocalAppShape = staticCompositionLocalOf {
     AppShape(
         primaryContainer = RectangleShape,
         secondaryContainer = RectangleShape,
+        tertiaryContainer = RectangleShape,
     )
 }
 

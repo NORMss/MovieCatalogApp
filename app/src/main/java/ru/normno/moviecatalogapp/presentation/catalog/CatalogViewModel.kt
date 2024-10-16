@@ -11,6 +11,9 @@ import ru.normno.moviecatalogapp.domain.model.Film
 import ru.normno.moviecatalogapp.domain.usecases.MovieCatalogUseCases
 import ru.normno.moviecatalogapp.util.network.onError
 import ru.normno.moviecatalogapp.util.network.onSuccess
+import ru.normno.moviecatalogapp.util.snackbar.SnackbarAction
+import ru.normno.moviecatalogapp.util.snackbar.SnackbarController
+import ru.normno.moviecatalogapp.util.snackbar.SnackbarEvent
 
 class CatalogViewModel(
     private val useCases: MovieCatalogUseCases,
@@ -36,6 +39,22 @@ class CatalogViewModel(
         }
     }
 
+    private fun showErrorSnakbar(errorMessage: String, actionText: String) {
+        viewModelScope.launch {
+            SnackbarController.sendEvent(
+                event = SnackbarEvent(
+                    message = errorMessage,
+                    action = SnackbarAction(
+                        name = actionText,
+                        action = {
+                            getMovieCatalog()
+                        }
+                    )
+                )
+            )
+        }
+    }
+
     private fun setFilms(films: List<Film>) {
         _state.update {
             it.copy(
@@ -54,6 +73,10 @@ class CatalogViewModel(
             }
             .onError { errorMessage ->
                 setErrorMessage(errorMessage = errorMessage.name)
+                showErrorSnakbar(
+                    errorMessage = "Ошибка подключения сети",
+                    actionText = "ПОВТОРИТЬ",
+                )
             }
         setIsLoading(false)
     }

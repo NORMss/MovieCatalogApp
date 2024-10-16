@@ -68,7 +68,8 @@ private val typography = AppTypography(
 
 private val shape = AppShape(
     primaryContainer = RoundedCornerShape(8.dp),
-    secondaryContainer = RectangleShape,
+    secondaryContainer = RoundedCornerShape(4.dp),
+    tertiaryContainer = RoundedCornerShape(2.dp)
 )
 
 private val size = AppSize(

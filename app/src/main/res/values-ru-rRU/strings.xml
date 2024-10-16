@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Movie Catalog</string>
+    <string name="app_name">Каталог Фильмов</string>
     <string name="films">Фильмы</string>
-    <string name="genres">Жанры</string>
+    <string name="geners">Жанры</string>
     <string name="kinopoisk">КиноПоиск</string>
     <string name="network_error">Ошибка подключения сети</string>
     <string name="repeat">ПОВТОРИТЬ</string>
