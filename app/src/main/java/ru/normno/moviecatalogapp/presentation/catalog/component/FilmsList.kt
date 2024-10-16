@@ -19,13 +19,13 @@ import ru.normno.moviecatalogapp.ui.theme.AppTheme
 fun FilmsList(
     films: List<Film>,
     onClickFilm: (Film) -> Unit,
-    columnsCount: Int = 1,
+    columnsCount: Int = 2,
     scope: LazyListScope,
 ) {
     scope.apply {
         item {
             val itemSize: Dp =
-                ((LocalConfiguration.current.screenWidthDp.dp / 2) - (AppTheme.size.normal) - (AppTheme.size.medium))
+                ((LocalConfiguration.current.screenWidthDp.dp / columnsCount) - (AppTheme.size.normal) - (AppTheme.size.medium))
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()

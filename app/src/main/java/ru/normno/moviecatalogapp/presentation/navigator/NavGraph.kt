@@ -9,6 +9,7 @@ import androidx.navigation.toRoute
 import org.koin.compose.viewmodel.koinViewModel
 import ru.normno.moviecatalogapp.domain.model.Film
 import ru.normno.moviecatalogapp.presentation.catalog.CatalogScreen
+import ru.normno.moviecatalogapp.presentation.catalog.CatalogScreen2
 import ru.normno.moviecatalogapp.presentation.catalog.CatalogViewModel
 import ru.normno.moviecatalogapp.presentation.detail.DetailScreen
 import ru.normno.moviecatalogapp.util.navtype.FilmNavType
@@ -27,10 +28,11 @@ fun NavGraph(
         composable<Route.Catalog> {
             val viewModel = koinViewModel<CatalogViewModel>()
             val state = viewModel.state.collectAsState().value
-            CatalogScreen(
+            CatalogScreen2(
                 genres = state.genres,
                 selectGenre = state.selectGenre,
                 films = state.filteredFilms,
+                isLoading = state.isLoading,
                 onSelectGenre = { selectGenre ->
                     viewModel.setSelectGenre(
                         genre = selectGenre,
@@ -39,7 +41,9 @@ fun NavGraph(
                 onClickFilm = { film ->
                     navController.navigate(
                         Route.Details(film)
-                    )
+                    ) {
+                        launchSingleTop = true
+                    }
                 }
             )
         }

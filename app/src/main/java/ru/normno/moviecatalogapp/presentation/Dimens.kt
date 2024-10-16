@@ -7,4 +7,6 @@ object Dimens {
     val heightTextName = 40.dp
 
     val heightImageFromDetail = 201.dp
+
+    val sizeCircularProgressIndicator = 48.dp
 }

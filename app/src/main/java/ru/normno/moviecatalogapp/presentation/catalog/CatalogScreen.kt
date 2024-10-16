@@ -104,7 +104,7 @@ fun CatalogScreen(
                 onClickFilm = { film ->
                     onClickFilm(film)
                 },
-                columnsCount = 3,
+                columnsCount = 2,
                 scope = this,
             )
         }
