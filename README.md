@@ -1,7 +1,8 @@
 <h1 align="center">🎥Movie Catalog🎞️</h1>
 
 <p align="center">
-  <a href="https://android-arsenal.com/api?level=26"><img alt="API" src="https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat"/></a>
+  <a href="https://android-arsenal.com/api?level=26"><img alt="API" src="https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat"/>
+    <a href="https://github.com/normss/MovieCatalogApp/releases"><img src="https://img.shields.io/badge/APK-Universal-044d29.svg?logo=android"/>
 </p>
 
 ## Download
