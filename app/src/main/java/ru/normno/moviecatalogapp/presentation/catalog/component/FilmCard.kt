@@ -53,5 +53,9 @@ fun FilmCard(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.heightIn(min = heightTextName)
         )
+        Spacer(
+            modifier = Modifier
+                .height(AppTheme.size.medium)
+        )
     }
 }

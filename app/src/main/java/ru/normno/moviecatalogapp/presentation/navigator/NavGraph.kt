@@ -9,9 +9,9 @@ import androidx.navigation.toRoute
 import org.koin.compose.viewmodel.koinViewModel
 import ru.normno.moviecatalogapp.domain.model.Film
 import ru.normno.moviecatalogapp.presentation.catalog.CatalogScreen
-import ru.normno.moviecatalogapp.presentation.catalog.CatalogScreen2
 import ru.normno.moviecatalogapp.presentation.catalog.CatalogViewModel
 import ru.normno.moviecatalogapp.presentation.detail.DetailScreen
+import ru.normno.moviecatalogapp.ui.theme.AppTheme
 import ru.normno.moviecatalogapp.util.navtype.FilmNavType
 import kotlin.reflect.typeOf
 
@@ -28,10 +28,11 @@ fun NavGraph(
         composable<Route.Catalog> {
             val viewModel = koinViewModel<CatalogViewModel>()
             val state = viewModel.state.collectAsState().value
-            CatalogScreen2(
+            CatalogScreen(
                 genres = state.genres,
                 selectGenre = state.selectGenre,
                 films = state.filteredFilms,
+                paddingHorizontal = AppTheme.size.medium,
                 isLoading = state.isLoading,
                 onSelectGenre = { selectGenre ->
                     viewModel.setSelectGenre(

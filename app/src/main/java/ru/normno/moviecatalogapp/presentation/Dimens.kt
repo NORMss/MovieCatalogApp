@@ -10,4 +10,5 @@ object Dimens {
     val heightImageFromDetail = 201.dp
 
     val sizeCircularProgressIndicator = 48.dp
+    val sizeTopAppBarShadow = 2.dp
 }

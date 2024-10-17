@@ -1,53 +1,29 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package ru.normno.moviecatalogapp.presentation.catalog.component
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.lazy.grid.LazyGridScope
+import androidx.compose.foundation.lazy.grid.items
 import ru.normno.moviecatalogapp.domain.model.Film
-import ru.normno.moviecatalogapp.ui.theme.AppTheme
+
 
 fun FilmsList(
     films: List<Film>,
     onClickFilm: (Film) -> Unit,
-    columnsCount: Int = 2,
-    scope: LazyListScope,
+    scope: LazyGridScope,
 ) {
     scope.apply {
-        item {
-            val itemSize: Dp =
-                ((LocalConfiguration.current.screenWidthDp.dp / columnsCount) - (AppTheme.size.normal) - (AppTheme.size.medium))
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = AppTheme.size.medium,
-                    ),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.size.normal),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.size.medium),
-                maxItemsInEachRow = columnsCount,
-            ) {
-                films.forEach { film ->
-                    FilmCard(
-                        imageUrl = film.imageUrl,
-                        name = film.localizedName ?: "",
-                        onClick = {
-                            onClickFilm(film)
-                        },
-                        modifier = Modifier
-                            .width(itemSize)
-                    )
-                }
-            }
+        items(
+            items = films,
+            key = {
+                it.id
+            },
+        ) { film ->
+            FilmCard(
+                imageUrl = film.imageUrl,
+                name = film.localizedName ?: "",
+                onClick = {
+                    onClickFilm(film)
+                },
+            )
         }
     }
 }

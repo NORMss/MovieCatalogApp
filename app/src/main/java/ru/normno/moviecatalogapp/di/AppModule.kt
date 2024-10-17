@@ -1,9 +1,11 @@
 package ru.normno.moviecatalogapp.di
 
+import android.content.Context
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.viewModel
@@ -19,9 +21,10 @@ import ru.normno.moviecatalogapp.presentation.catalog.CatalogViewModel
 import java.util.concurrent.TimeUnit
 
 object AppModule {
-    fun initializeKoin() {
+    fun initializeKoin(context: Context) {
         startKoin {
             androidLogger()
+            androidContext(context)
             modules(
                 networkModule,
                 movieCatalogRepositoryModule,
@@ -44,7 +47,7 @@ object AppModule {
     }
 
     private val viewModelModule = module {
-        viewModel { CatalogViewModel(get()) }
+        viewModel { CatalogViewModel(get(), get()) }
     }
 
     private val networkModule = module {

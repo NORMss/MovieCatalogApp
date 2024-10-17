@@ -1,5 +1,6 @@
 package ru.normno.moviecatalogapp.presentation.catalog
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.normno.moviecatalogapp.R
 import ru.normno.moviecatalogapp.domain.model.Film
 import ru.normno.moviecatalogapp.domain.usecases.MovieCatalogUseCases
 import ru.normno.moviecatalogapp.util.network.onError
@@ -17,6 +19,7 @@ import ru.normno.moviecatalogapp.util.snackbar.SnackbarEvent
 
 class CatalogViewModel(
     private val useCases: MovieCatalogUseCases,
+    private val context: Context,
 ) : ViewModel() {
     private val _state = MutableStateFlow(CatalogState())
     val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
@@ -67,6 +70,7 @@ class CatalogViewModel(
         setIsLoading(true)
         useCases.getMovieCatalog()
             .onSuccess { films ->
+                clearErrorMessage()
                 setFilms(films)
                 crateGenreList()
                 filterFilmsByGenre(null)
@@ -74,8 +78,8 @@ class CatalogViewModel(
             .onError { errorMessage ->
                 setErrorMessage(errorMessage = errorMessage.name)
                 showErrorSnakbar(
-                    errorMessage = "Ошибка подключения сети",
-                    actionText = "ПОВТОРИТЬ",
+                    errorMessage = context.getString(R.string.network_error),
+                    actionText = context.getString(R.string.repeat),
                 )
             }
         setIsLoading(false)
@@ -85,6 +89,14 @@ class CatalogViewModel(
         _state.update {
             it.copy(
                 errorMessage = errorMessage,
+            )
+        }
+    }
+
+    private fun clearErrorMessage() {
+        _state.update {
+            it.copy(
+                errorMessage = null,
             )
         }
     }

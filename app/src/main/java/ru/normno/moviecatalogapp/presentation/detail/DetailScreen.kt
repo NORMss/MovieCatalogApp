@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package ru.normno.moviecatalogapp.presentation.detail
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -13,16 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,12 +21,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import ru.normno.moviecatalogapp.R
-import ru.normno.moviecatalogapp.presentation.Dimens.heightImageFromDetail
+import ru.normno.moviecatalogapp.presentation.detail.component.DetailTopAppBar
 import ru.normno.moviecatalogapp.ui.theme.AppTheme
 import ru.normno.moviecatalogapp.ui.theme.BlackCow
 import ru.normno.moviecatalogapp.ui.theme.Marine
@@ -56,35 +44,9 @@ fun DetailScreen(
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    name?.let {
-                        Text(
-                            text = name,
-                            style = AppTheme.typography.titleSmall,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onBackClick()
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = "navigate_up"
-                        )
-                    }
-                },
-                colors = TopAppBarColors(
-                    containerColor = AppTheme.colorScheme.primary,
-                    scrolledContainerColor = AppTheme.colorScheme.primary,
-                    navigationIconContentColor = AppTheme.colorScheme.onPrimary,
-                    titleContentColor = AppTheme.colorScheme.onPrimary,
-                    actionIconContentColor = AppTheme.colorScheme.onPrimary,
-                )
+            DetailTopAppBar(
+                title = name,
+                onBackClick = onBackClick,
             )
         },
         containerColor = AppTheme.colorScheme.background,
@@ -106,12 +68,12 @@ fun DetailScreen(
                         contentDescription = null,
                         error = painterResource(R.drawable.image_load_error),
                         modifier = Modifier
-                            .clip(AppTheme.shape.secondaryContainer)
-                            .fillMaxWidth(0.5f)
-                            .aspectRatio(9f / 16f)
                             .padding(
                                 vertical = AppTheme.size.large,
-                            ),
+                            )
+                            .clip(AppTheme.shape.secondaryContainer)
+                            .fillMaxWidth(0.5f)
+                            .aspectRatio(9f / 16f),
                         contentScale = ContentScale.Crop,
                     )
                 }
@@ -151,6 +113,7 @@ fun DetailScreen(
                                 fontWeight = FontWeight.Bold,
                             ),
                             color = Marine,
+                            modifier = Modifier.alignByBaseline()
                         )
                         Spacer(
                             modifier = Modifier
@@ -160,6 +123,7 @@ fun DetailScreen(
                             text = stringResource(R.string.kinopoisk),
                             style = AppTheme.typography.titleExtraSmall,
                             color = Marine,
+                            modifier = Modifier.alignByBaseline()
                         )
                     }
                 }
@@ -169,6 +133,8 @@ fun DetailScreen(
                 )
                 Text(
                     text = description ?: "",
+                    style = AppTheme.typography.body,
+                    color = AppTheme.colorScheme.onBackground,
                 )
             }
         }

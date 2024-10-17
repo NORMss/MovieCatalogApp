@@ -1,15 +1,19 @@
 package ru.normno.moviecatalogapp.ui.theme
 
+import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 
 
 private val lightColorScheme = AppColorScheme(
@@ -28,6 +32,7 @@ private val typography = AppTypography(
         fontFamily = Roboto,
         fontWeight = FontWeight.Bold,
         fontSize = 26.sp,
+        lineHeight = 32.sp,
     ),
     titleNormal = TextStyle(
         fontFamily = Roboto,
@@ -38,6 +43,7 @@ private val typography = AppTypography(
         fontFamily = Roboto,
         fontWeight = FontWeight.Medium,
         fontSize = 18.sp,
+        lineHeight = 22.sp,
     ),
     titleExtraSmall = TextStyle(
         fontFamily = Roboto,
@@ -48,6 +54,7 @@ private val typography = AppTypography(
         fontFamily = Roboto,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
+        lineHeight = 20.sp,
     ),
     labelLarge = TextStyle(
         fontFamily = Roboto,
@@ -58,6 +65,7 @@ private val typography = AppTypography(
         fontFamily = Roboto,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
+        lineHeight = 20.sp,
     ),
     labelSmall = TextStyle(
         fontFamily = Roboto,
@@ -93,6 +101,14 @@ fun AppTheme(
         LocalAppSize provides size,
         content = content,
     )
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = colorScheme.primary.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
+        }
+    }
 }
 
 object AppTheme {
