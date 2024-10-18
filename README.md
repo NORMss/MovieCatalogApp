@@ -6,9 +6,8 @@
 </p>
 
 <p align="center">
-  <a href = "https://normno.ru/"><img src=https://github.com/user-attachments/assets/5ee145b4-a483-4165-984b-d4e2204c1e0e/>
+  <a href = "https://normno.ru/"><img src="https://github.com/user-attachments/assets/74598e9a-c222-4209-987f-9adecf270359">
 </p>
-
 
 ## Download
 Go to the [Releases](https://github.com/normss/MovieCatalogApp/releases) to download the latest APK.
