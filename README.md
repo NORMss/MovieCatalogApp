@@ -6,8 +6,7 @@
 </p>
 
 <p align="center">
-<img src=https://github.com/user-attachments/assets/ef30884b-b44f-486d-b0fa-5130183410e8
-/>
+  <a href = "https://normno.ru/"><img src=https://github.com/user-attachments/assets/5ee145b4-a483-4165-984b-d4e2204c1e0e/>
 </p>
 
 
