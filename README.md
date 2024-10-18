@@ -5,6 +5,12 @@
     <a href="https://github.com/normss/MovieCatalogApp/releases"><img src="https://img.shields.io/badge/APK-Universal-044d29.svg?logo=android"/>
 </p>
 
+<p align="center">
+<img src=https://github.com/user-attachments/assets/ef30884b-b44f-486d-b0fa-5130183410e8
+/>
+</p>
+
+
 ## Download
 Go to the [Releases](https://github.com/normss/MovieCatalogApp/releases) to download the latest APK.
 
